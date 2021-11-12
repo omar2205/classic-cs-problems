@@ -1,14 +1,16 @@
 # 1.1 The Fibonacci sequence
-from typing import Dict
+from functools import lru_cache
 
-# base case
-memo: Dict[int, int] = {0: 0, 1: 1}
+# lru_cache causes the return of fib function
+# to be cached every time it's called
 
+@lru_cache(maxsize=None)
 def fib(n: int) -> int:
-  if n not in memo:
-    # memoization
-    memo[n] = fib(n - 1) + fib(n - 2)
-  return memo[n]
+  # base case
+  if n < 2:
+    return n
+  # recursive case
+  return fib(n - 1) + fib(n - 2)
 
 # test
 if __name__ == '__main__':
